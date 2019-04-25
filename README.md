@@ -23,6 +23,6 @@ try{
 
 `parse()` takes 2 parameters.
 
-`numberString` - Number string to be parsed
+&nbsp;&nbsp;&nbsp;&nbsp;`numberString` - Number string to be parsed
 
-`defaultRegion` - default is `IN`. Used when country code prefix is not provided with phone number string
+&nbsp;&nbsp;&nbsp;&nbsp;`defaultRegion` - default is `IN`. Used when country code prefix is not provided with phone number string

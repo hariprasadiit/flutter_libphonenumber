@@ -10,6 +10,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.michaelrocks.libphonenumber.android.NumberParseException
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
+import java.lang.NumberFormatException
 
 
 class FlutterLibphonenumberPlugin(private val activity: Activity) : MethodCallHandler {
@@ -40,6 +41,9 @@ class FlutterLibphonenumberPlugin(private val activity: Activity) : MethodCallHa
 
       try {
         val parsedNumber = phoneNumberUtil.parse(phoneNumber, defaultRegion)
+        if(!phoneNumberUtil.isValidNumber(parsedNumber))
+          throw NumberParseException(NumberParseException.ErrorType.NOT_A_NUMBER, "Invalid phone number")
+
         val phoneMap = hashMapOf<String, Any?>(
             "countryCode" to parsedNumber.countryCode,
             "nationalNumber" to parsedNumber.nationalNumber,
@@ -47,11 +51,7 @@ class FlutterLibphonenumberPlugin(private val activity: Activity) : MethodCallHa
         )
         result.success(phoneMap)
       }catch (e: NumberParseException) {
-        if(e.errorType == NumberParseException.ErrorType.TOO_SHORT_AFTER_IDD || e.errorType == NumberParseException.ErrorType.TOO_SHORT_AFTER_IDD){
-          result.error("TOO_SHORT", e.message, null)
-        }else {
-          result.error(e.errorType.name, e.message, null)
-        }
+        result.error(e.errorType.name, e.message, null)
       }catch (e: Exception) {
         result.error("PARSE_ERROR", "Unknown error while parsing", e.message)
       }
