@@ -39,7 +39,7 @@ android {
     }
 
     dependencies {
-        implementation 'io.michaelrocks:libphonenumber-android:8.10.7'
+        implementation 'io.michaelrocks:libphonenumber-android:8.12.3'
     }
 }
 

@@ -16,7 +16,7 @@ Flutter plugin wrapper to Google&#x27;s libphonenumber
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   
-  s.dependency 'PhoneNumberKit', '~> 2.5'
+  s.dependency 'PhoneNumberKit', '~> 3.2.0'
 
   s.ios.deployment_target = '9.0'
 end
